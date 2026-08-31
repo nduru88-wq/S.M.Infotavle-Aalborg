@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <title>Infotavle</title>
+
+  <link rel="manifest" href="pwa/manifest-infotavle.json">
+  <meta name="theme-color" content="#2f3b4d">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Infotavle">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="pwa/Infotavle-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="pwa/Infotavle-512.png">
+  <link rel="apple-touch-icon" href="pwa/Infotavle-192.png">
+
+  <link rel="stylesheet" href="style.css?v=20260814-simtid1">
+</head>
+
+<body class="loading">
+
+  <div id="dataLoaderOverlay">
+    <div class="dataLoaderBox">Henter infotavle data...</div>
+  </div>
+
+  <div class="topbar">
+
+    <button class="mobil-slideshow-knap" type="button" onclick="aabnMobilSlideshow()" aria-label="Åbn slideshow">Slideshow</button>
+    <a class="mobil-opret-tilbage" href="opret.html" aria-label="Opret">Opret</a>
+
+    <div class="topbar-logoer">
+      <img src="logo/specialmindslogo.png" alt="">
+      <img src="logo/specialmindslogo.png" alt="">
+      <img src="logo/specialmindslogo.png" alt="">
+    </div>
+
+    <button class="uge-pil" onclick="skiftUge(-1)">&#8592;</button>
+
+    <span id="ugeTitel">SPECIALMINDS INFOTAVLE</span>
+
+    <button class="uge-pil" onclick="skiftUge(1)">&#8594;</button>
+
+    <div class="topbar-logoer">
+      <img src="logo/specialmindslogo.png" alt="">
+      <img src="logo/specialmindslogo.png" alt="">
+      <img src="logo/specialmindslogo.png" alt="">
+    </div>
+
+    <div id="ur" class="topbar-ur" title="Aktuel tid" onclick="trykPåUr()">
+      <span id="urTid">kl. --.--</span>
+      <span id="aktuelDato"></span>
+    </div>
+
+  </div>
+
+  <div class="week" id="week"></div>
+
+  <div id="mobilSlideshowOverlay" class="mobil-slideshow-overlay" aria-hidden="true">
+    <button class="mobil-slideshow-luk" type="button" onclick="lukMobilSlideshow()" aria-label="Luk slideshow">×</button>
+    <div class="mobil-slideshow-billede-wrap">
+      <img id="mobilSlideshowImg" class="slideshow-lag aktiv" alt="Slideshow">
+      <img id="mobilSlideshowImgNext" class="slideshow-lag" alt="Slideshow">
+      <video id="mobilSlideshowVideo" muted playsinline preload="metadata"></video>
+      <div id="mobilSlideshowCounter" class="slideshow-counter mobil-counter">1 / 1</div>
+    </div>
+  </div>
+
+  <div class="bottom-panel">
+
+    <div class="bottom-box">
+      <h3>Næste uge:</h3>
+      <div id="miniNaesteUge" class="mini-week"></div>
+    </div>
+
+    <div class="bottom-box">
+      <h3 onclick="skiftPersonaleBilleder(); return false;" style="cursor:pointer; user-select:none;">
+        Personale
+      </h3>
+
+      <div class="personale-del">
+        <div class="staff" id="staff"></div>
+      </div>
+    </div>
+
+    <div class="bottom-box">
+      <h3>Hverdagen hos Special Minds</h3>
+      <div class="slideshow" id="pcSlideshow" title="Klik for at åbne billedfremviser">
+        <img id="slideshowImg" class="slideshow-lag aktiv" alt="Slideshow">
+        <img id="slideshowImgNext" class="slideshow-lag" alt="Slideshow">
+        <video id="slideshowVideo" muted playsinline preload="metadata"></video>
+        <div id="slideshowCounter" class="slideshow-counter">1 / 1</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stor billedfremviser på PC -->
+  <div id="slideshowViewer" class="slideshow-viewer" aria-hidden="true">
+    <button id="slideshowViewerLuk" class="slideshow-viewer-luk" type="button" aria-label="Luk billedfremviser">×</button>
+    <button id="slideshowViewerForrige" class="slideshow-viewer-pil slideshow-viewer-forrige" type="button" aria-label="Forrige billede">‹</button>
+
+    <div class="slideshow-viewer-indhold">
+      <div class="slideshow-viewer-medie">
+        <img id="slideshowViewerImg" alt="Slideshow">
+        <video id="slideshowViewerVideo" muted playsinline controls></video>
+      </div>
+      <div id="slideshowViewerCounter" class="slideshow-viewer-counter">1 / 1</div>
+      <div id="slideshowViewerNavn" class="slideshow-viewer-navn"></div>
+      <div id="slideshowViewerThumbnails" class="slideshow-viewer-thumbnails"></div>
+    </div>
+
+    <button id="slideshowViewerNaeste" class="slideshow-viewer-pil slideshow-viewer-naeste" type="button" aria-label="Næste billede">›</button>
+  </div>
+
+  <!-- Simuleret tid: åbnes med 3 hurtige klik på uret -->
+  <div id="simModal" class="modal-bg" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="simTitel">
+      <h2 id="simTitel">Simuleret tid</h2>
+
+      <label for="simDato">Dato</label>
+      <input id="simDato" type="date">
+
+      <label for="simTid">Tid</label>
+      <input id="simTid" type="time">
+
+      <button type="button" onclick="aktiverSimTid()">Aktiver simuleret tid</button>
+      <button type="button" onclick="deaktiverSimTid()">Normal tid</button>
+      <button type="button" onclick="lukSimModal()">Luk</button>
+
+      <div id="simStatus"></div>
+    </div>
+  </div>
+
+  <script src="script.js?v=20260829-slet-animation"></script>
+
+</body>
+</html>
