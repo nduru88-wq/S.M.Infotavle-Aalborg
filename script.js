@@ -1721,7 +1721,7 @@ var slideshowBilleder = [];
 var slideshowTimer = null;
 
 var SLIDESHOW_API =
-  "https://script.google.com/macros/s/AKfycbyHB9_2i6HMmugYXs-vMKtZZm3qLCoLKtq7plNjL3uhNk08UB39GQJ_HZq_6PSLhvhRgw/exec?action=slideshow";
+  "https://script.google.com/macros/s/AKfycby5jnw7b_PJHvYedTjOvmalA-0ldvnOsWwwIhSRlCEO3emxZochj9uhZvxV7LPK_u4mdA/exec?action=slideshow";
 
 function startSlideshow() {
   hentSlideshowBillederFraDrive();
