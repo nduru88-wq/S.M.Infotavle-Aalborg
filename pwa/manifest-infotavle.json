@@ -1,0 +1,22 @@
+{
+  "name": "Special Minds Infotavle",
+"short_name": "SM Tavle",
+  "start_url": "https://nduru88-wq.github.io/SpecialMinds-Infotavle/",
+  "display": "standalone",
+  "background_color": "#2f3b4d",
+  "theme_color": "#2f3b4d",
+  "icons": [
+    {
+      "src": "https://nduru88-wq.github.io/InfotavleSM-Billeder/pwa/Infotavle-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://nduru88-wq.github.io/InfotavleSM-Billeder/pwa/Infotavle-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

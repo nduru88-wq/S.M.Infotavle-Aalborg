@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Opret fødselsdag</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="pwa/manifest-foedselsdag.json">
+
+  <meta name="theme-color" content="#2f3b4d">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Fødselsdag">
+
+  <link rel="apple-touch-icon" href="pwa/Foed-192.png">
+
+  <link rel="stylesheet" href="foedselsdag.css">
+</head>
+
+<body>
+
+  <div class="box">
+
+    <a class="opret-tilbage" href="opret.html">← Opret</a>
+
+    <h1>Opret fødselsdag</h1>
+
+    <label for="navn">Fornavn</label>
+
+    <input
+      id="navn"
+      type="text"
+      placeholder="F.eks. Finn"
+      autocomplete="off">
+
+    <label for="kortDato">Fødselsdato som tal</label>
+
+    <input
+      id="kortDato"
+      type="text"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="F.eks. 030881"
+      autocomplete="off">
+
+    <div class="hint">
+      030881 bliver til 3. august 1981
+    </div>
+
+    <label for="manuelDato">Eller vælg dato manuelt</label>
+
+    <input id="manuelDato" type="date">
+
+    <button id="gemKnap" onclick="gemFoedselsdag()">
+      Gem fødselsdag
+    </button>
+
+    <div id="status"></div>
+
+  </div>
+
+  <script src="foedselsdag.js?v=2"></script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Admin</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2f5;
+      padding: 20px;
+    }
+
+    .box {
+      max-width: 480px;
+      margin: 30px auto;
+      background: white;
+      padding: 24px;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2f3b4d;
+      margin-top: 0;
+    }
+
+    input,
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 20px;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 12px;
+      font-family: Arial, sans-serif;
+    }
+
+    input {
+      border: 1px solid #bbb;
+    }
+
+    button {
+      border: none;
+      background: #0066aa;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .admin-links {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .admin-links button {
+      background: #2e9b44;
+    }
+
+    .logout {
+      background: #b00000 !important;
+    }
+
+    #status {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 14px;
+      color: #b00000;
+      min-height: 22px;
+    }
+
+    @media(max-width:600px) {
+      body {
+        padding: 12px;
+      }
+
+      .box {
+        margin: 12px auto;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>Special Minds Admin</h1>
+
+    <div id="loginBox">
+      <input
+        id="kode"
+        type="password"
+        placeholder="Skriv adgangskode"
+        autocomplete="off">
+
+      <button id="loginKnap" onclick="login()">
+        Log ind
+      </button>
+
+      <div id="status"></div>
+    </div>
+
+    <div id="adminLinks" class="admin-links">
+      <button onclick="aabn('opret')">Opret aktivitet</button>
+      <button onclick="aabn('foedselsdag')">Opret fødselsdag</button>
+      <button onclick="aabn('rapport')">Rapport</button>
+      <button onclick="aabnTavle()">Åbn tavlen</button>
+      <button class="logout" onclick="logUd()">Log ud på denne enhed</button>
+    </div>
+  </div>
+
+  <script>
+    const API_URL =
+  "https://script.google.com/macros/s/AKfycbySJ7n3fUmVg4dtVDKxhfYsIhh8S5REFfCeoT9F1H8g5fY0PSGBEtx4Y95vF_8Htxrh/exec";
+
+    const params = new URLSearchParams(window.location.search);
+    const REDIRECT_SIDE = params.get("redirectSide") || "";
+    const REDIRECT_ID = params.get("aktivitetId") || "";
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const token = localStorage.getItem("sm_admin_token");
+
+      if (token) {
+        visAdmin();
+
+        if (REDIRECT_SIDE) {
+          aabn(REDIRECT_SIDE, REDIRECT_ID);
+        }
+      }
+    });
+
+    function kaldApi(data) {
+      return new Promise(function(resolve, reject) {
+        const callbackName = "jsonpCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+        data.callback = callbackName;
+
+        const script = document.createElement("script");
+        const query = new URLSearchParams(data).toString();
+
+        window[callbackName] = function(response) {
+          delete window[callbackName];
+          script.remove();
+
+          if (response && response.ok === false) {
+            reject(new Error(response.message || "Der opstod en fejl."));
+          } else {
+            resolve(response);
+          }
+        };
+
+        script.onerror = function() {
+          delete window[callbackName];
+          script.remove();
+          reject(new Error("Kunne ikke kontakte systemet."));
+        };
+
+        script.src = API_URL + "?" + query;
+        document.body.appendChild(script);
+      });
+    }
+
+    function login() {
+      const kode = document.getElementById("kode").value;
+      const status = document.getElementById("status");
+      const knap = document.getElementById("loginKnap");
+
+      status.textContent = "";
+
+      if (!kode) {
+        status.textContent = "Skriv adgangskoden først.";
+        return;
+      }
+
+      knap.disabled = true;
+      knap.textContent = "Tjekker...";
+
+      kaldApi({
+        action: "adminLogin",
+        kode: kode
+      })
+      .then(function(data) {
+        localStorage.setItem("sm_admin_token", data.token);
+
+        status.textContent = "";
+        nulstilLoginKnap();
+        visAdmin();
+
+        if (REDIRECT_SIDE) {
+          aabn(REDIRECT_SIDE, REDIRECT_ID);
+        }
+      })
+      .catch(function(err) {
+        status.textContent = err.message || "Forkert kode";
+        nulstilLoginKnap();
+      });
+    }
+
+    function visAdmin() {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("adminLinks").style.display = "flex";
+    }
+
+    function nulstilLoginKnap() {
+      const knap = document.getElementById("loginKnap");
+      knap.disabled = false;
+      knap.textContent = "Log ind";
+    }
+
+    function aabn(side, id) {
+  const githubBase =
+    "https://nduru88-wq.github.io/SpecialMinds-Infotavle/";
+
+  let fil =
+    side === "opret" ? "opret.html" :
+    side === "foedselsdag" ? "foedselsdag.html" :
+    side === "rapport" ? "rapport.html" :
+    "index.html";
+
+  let url = githubBase + fil;
+
+  if (id) {
+    url += "?id=" + encodeURIComponent(id);
+  }
+
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function aabnTavle() {
+  window.open(
+    "https://nduru88-wq.github.io/SpecialMinds-Infotavle/",
+    "_blank",
+    "noopener,noreferrer"
+  );
+}
+
+function logUd() {
+  localStorage.removeItem("sm_admin_token");
+  location.reload();
+}
+</script>
+
+</body>
+</html>

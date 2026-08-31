@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Rapport</title>
+
+  <link rel="manifest" href="pwa/manifest-rapport.json">
+  <meta name="theme-color" content="#2f3b4d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Rapport">
+  <link rel="apple-touch-icon" href="pwa/Rapport-192.png">
+
+  <link rel="stylesheet" href="rapport.css">
+</head>
+
+<body>
+
+  <div class="topbar">
+    RAPPORT
+  </div>
+
+  <div class="rapportbox">
+
+    <div class="filtergrid">
+
+      <div class="filterfelt">
+        <label>Person</label>
+        <select id="person">
+          <option>Alle</option>
+        </select>
+      </div>
+
+      <div class="filterfelt">
+        <label>Aktivitet</label>
+        <select id="aktivitet">
+          <option>Alle</option>
+        </select>
+      </div>
+
+      <div class="filterfelt">
+        <label>Fra dato</label>
+        <input type="date" id="fraDato">
+      </div>
+
+      <div class="filterfelt">
+        <label>Til dato</label>
+        <input type="date" id="tilDato">
+      </div>
+
+    </div>
+
+    <button class="rapportknap" onclick="visRapport()">
+      Vis data
+    </button>
+
+    <div id="rapportStatus"></div>
+    <div id="rapportResultat"></div>
+
+  </div>
+
+  <script src="rapport.js?v=4"></script>
+
+</body>
+</html>

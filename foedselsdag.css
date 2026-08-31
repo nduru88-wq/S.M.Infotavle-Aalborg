@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef2f5;
+  padding: 20px;
+}
+
+.box {
+  max-width: 480px;
+  margin: 0 auto;
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+h1 {
+  margin-top: 0;
+  color: #2f3b4d;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+}
+
+.hint {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+button {
+  width: 100%;
+  margin-top: 26px;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #00a99d;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+#status {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: bold;
+  min-height: 22px;
+}
+
+#status.fejl {
+  color: #b00000;
+}
+
+#status.ok {
+  color: #007700;
+}
+
+@media(max-width:600px) {
+  body {
+    padding: 12px;
+  }
+
+  .box {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+\n\n/* Lille tilbage-knap til Opret */\n.opret-tilbage {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 38px;\n  padding: 0 13px;\n  margin: 0 0 12px 0;\n  border-radius: 10px;\n  background: #2f3b4d;\n  color: white;\n  text-decoration: none;\n  font-size: 16px;\n  font-weight: bold;\n  box-shadow: 0 2px 6px rgba(0,0,0,0.15);\n  -webkit-tap-highlight-color: transparent;\n}\n\n.opret-tilbage:active {\n  transform: translateY(1px);\n}\n

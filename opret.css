@@ -1,0 +1,740 @@
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+}
+
+.topbar {
+  background: #2f3b4d;
+  color: white;
+  padding: 16px 20px;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.formbox {
+  width: calc(100% - 24px);
+  max-width: 760px;
+  margin: 18px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formbox label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.formbox select,
+.formbox button,
+.formbox input,
+.formbox textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  font-family: Arial, sans-serif;
+}
+
+.formbox textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.formbox button {
+  background: #0066aa;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.kategori-rad {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.kategori-felt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kategori-rad select {
+  width: 100%;
+}
+
+#aktivitetInfo,
+#aktivitetFravaer,
+#aktivitetFast {
+  background: #f1f1f1;
+  color: black;
+  font-weight: bold;
+}
+
+.valgtKategori {
+  background: #2e9b44 !important;
+  color: white !important;
+}
+
+.repeat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.repeat-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.repeat-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.repeat-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.repeat-option input {
+  width: 22px;
+  height: 22px;
+}
+
+.hele-dagen-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.hele-dagen-row input {
+  width: 24px;
+  height: 24px;
+}
+
+#loginBox h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+}
+
+#adgangskode {
+  font-size: 24px;
+}
+
+#loginStatus {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #b00000;
+}
+
+.bundlinje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+#status {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+#gaaTilTavleBtn {
+  width: auto !important;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #2e9b44 !important;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#foedselsdagBtn {
+  width: auto !important;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #d93025 !important;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#indlaeserOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(240,240,240,0.96);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+#indlaeserOverlay.vis {
+  display: flex;
+}
+
+.indlaeserBox {
+  background: white;
+  padding: 26px 34px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  font-size: 26px;
+  font-weight: bold;
+  color: #2f3b4d;
+}
+
+.varighed-række {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.varighed-felt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.varighed-felt select {
+  width: 100%;
+}
+
+@media(max-width:600px) {
+  .topbar {
+    font-size: 26px;
+    padding: 16px 10px;
+  }
+
+  .formbox {
+    margin: 12px auto;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .kategori-rad,
+  .repeat-options,
+  .bundlinje {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #gaaTilTavleBtn,
+  #foedselsdagBtn {
+    width: 100% !important;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+
+/* ===== DATOVÆLGER / KALENDER – genindsat 27-08-2026 ===== */
+.dato-vaelger {
+  position: relative;
+  width: 100%;
+}
+
+#datoKnap {
+  width: 100%;
+  min-height: 50px;
+  background: white;
+  color: #222;
+  border: 1px solid #bbb;
+  text-align: center;
+  padding: 11px 44px;
+  position: relative;
+}
+
+#datoKnap::after {
+  content: "▼";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2f3b4d;
+  font-size: 15px;
+}
+
+#datoKnap[aria-expanded="true"]::after {
+  content: "▲";
+}
+
+.kalender-popup {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid #c7c7c7;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.22);
+  padding: 14px;
+  z-index: 1000;
+}
+
+.kalender-popup.vis {
+  display: block;
+}
+
+.kalender-genveje {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.kalender-genveje button {
+  flex: 1;
+  width: auto;
+  background: #eef3f8;
+  color: #2f3b4d;
+  border: 1px solid #c5cfda;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.kalender-top {
+  display: grid;
+  grid-template-columns: 46px 1fr 46px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.kalender-top button {
+  width: 46px;
+  height: 42px;
+  padding: 0;
+  background: #2f3b4d;
+  color: white;
+  font-size: 24px;
+  line-height: 1;
+}
+
+#kalenderMaanedTitel {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.kalender-ugedage,
+.kalender-dage {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.kalender-ugedage {
+  margin-bottom: 6px;
+}
+
+.kalender-ugedage div {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #58616d;
+  padding: 4px 0;
+}
+
+.kalender-dag,
+.kalender-tom {
+  aspect-ratio: 1 / 1;
+  min-height: 38px;
+}
+
+.kalender-dag {
+  width: 100%;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: #f4f4f4 !important;
+  color: #222 !important;
+  border: 1px solid transparent !important;
+  font-size: 16px !important;
+}
+
+.kalender-dag:hover {
+  background: #e2e9f0 !important;
+}
+
+.kalender-dag.i-dag {
+  border: 3px solid #2e9b44 !important;
+}
+
+.kalender-dag.valgt {
+  background: #0066aa !important;
+  color: white !important;
+  border-color: #0066aa !important;
+}
+
+.kalender-dag.i-dag.valgt {
+  box-shadow: inset 0 0 0 2px white;
+}
+
+/* ---------- ØVRIGT ---------- */
+
+.kategori-rad {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.kategori-felt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kategori-rad select {
+  width: 100%;
+}
+
+#aktivitetInfo,
+#aktivitetFravaer,
+#aktivitetFast {
+  background: #f1f1f1;
+  color: black;
+  font-weight: bold;
+}
+
+.valgtKategori {
+  background: #2e9b44 !important;
+  color: white !important;
+}
+
+.repeat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.repeat-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.repeat-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.repeat-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f1f1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.repeat-option input {
+  width: 22px;
+  height: 22px;
+}
+
+.hele-dagen-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.hele-dagen-row input {
+  width: 24px;
+  height: 24px;
+}
+
+#loginBox h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+}
+
+#adgangskode {
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 8px;
+}
+
+#loginStatus {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #b00000;
+}
+
+.bundlinje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+#status {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+#gaaTilTavleBtn {
+  width: auto !important;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #2e9b44 !important;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#foedselsdagBtn {
+  width: auto !important;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #d93025 !important;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#indlaeserOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(240,240,240,0.96);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+#indlaeserOverlay.vis {
+  display: flex;
+}
+
+.indlaeserBox {
+  background: white;
+  padding: 26px 34px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  font-size: 26px;
+  font-weight: bold;
+  color: #2f3b4d;
+}
+
+.varighed-række {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.varighed-felt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.varighed-felt select {
+  width: 100%;
+}
+
+@media(max-width:600px) {
+  .topbar {
+    font-size: 26px;
+    padding: 16px 10px;
+  }
+
+  .formbox {
+    margin: 12px auto;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .kategori-rad,
+  .bundlinje {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .repeat-options {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .repeat-option {
+    flex: 1;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  #gaaTilTavleBtn,
+  #foedselsdagBtn {
+    width: 100% !important;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .kalender-popup {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+
+  .kalender-dag,
+  .kalender-tom {
+    min-height: 36px;
+  }
+}
+
+
+/* =========================================================
+   INDLÆSNING PÅ KNAPPER
+   Login og Send til tavle bliver gule og pulserer,
+   mens de arbejder. Ingen spinner/indlæsningstekst under knappen.
+   ========================================================= */
+
+#loginKnap,
+#sendTilTavleKnap {
+  transition:
+    transform 120ms ease,
+    filter 120ms ease,
+    opacity 120ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#loginKnap:active,
+#sendTilTavleKnap:active {
+  transform: scale(0.97);
+  filter: brightness(0.9);
+}
+
+#loginKnap.venter-knap,
+#sendTilTavleKnap.venter-knap,
+#loginKnap.venter-knap:disabled,
+#sendTilTavleKnap.venter-knap:disabled {
+  background: #f4c542 !important;
+  color: #2f2f2f !important;
+  opacity: 1 !important;
+  cursor: wait;
+  animation: knapPuls 0.85s ease-in-out infinite alternate;
+}
+
+@keyframes knapPuls {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(244, 197, 66, 0);
+    filter: brightness(1);
+  }
+  to {
+    transform: scale(1.025);
+    box-shadow: 0 0 16px rgba(244, 197, 66, 0.72);
+    filter: brightness(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #loginKnap.venter-knap,
+  #sendTilTavleKnap.venter-knap {
+    animation: none;
+  }
+}
+
+
+/* SENDT – tydelig successtatus på selve knappen */
+#sendTilTavleKnap.sendt-knap,
+#sendTilTavleKnap.sendt-knap:disabled {
+  background: #2eaf5d !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  cursor: default;
+  animation: sendtPuls 0.55s ease-out 2;
+}
+
+@keyframes sendtPuls {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(46,175,93,0);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 0 18px rgba(46,175,93,0.58);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(46,175,93,0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sendTilTavleKnap.sendt-knap {
+    animation: none;
+  }
+}

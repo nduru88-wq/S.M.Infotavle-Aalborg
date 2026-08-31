@@ -1,0 +1,20 @@
+{
+  "name": "Special Minds Fødselsdag",
+  "short_name": "Fødselsdag",
+  "start_url": "../foedselsdag.html",
+  "display": "standalone",
+  "background_color": "#2f3b4d",
+  "theme_color": "#2f3b4d",
+  "icons": [
+    {
+      "src": "Foed-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Foed-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
