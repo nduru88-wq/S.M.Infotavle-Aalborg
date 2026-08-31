@@ -1721,47 +1721,88 @@ var slideshowBilleder = [];
 var slideshowTimer = null;
 
 var SLIDESHOW_API =
-  "https://api.github.com/repos/nduru88-wq/S.M.Infoavle-Aalborg/contents/slideshow";
+  "https://script.google.com/macros/s/AKfycbyHB9_2i6HMmugYXs-vMKtZZm3qLCoLKtq7plNjL3uhNk08UB39GQJ_HZq_6PSLhvhRgw/exec?action=slideshow";
 
 function startSlideshow() {
-  hentSlideshowBillederFraGithub();
+  hentSlideshowBillederFraDrive();
 
   setInterval(function() {
-    hentSlideshowBillederFraGithub();
+    hentSlideshowBillederFraDrive();
   }, 30 * 60 * 1000);
 }
 
-function hentSlideshowBillederFraGithub() {
-  fetch(SLIDESHOW_API + "?t=" + Date.now(), { cache: "no-store" })
-    .then(function(response) {
-      if (!response.ok) throw new Error("GitHub svarede med status " + response.status);
-      return response.json();
-    })
-    .then(function(files) {
-      if (!Array.isArray(files)) return;
+function hentSlideshowBillederFraDrive() {
+  var callbackName =
+    "smSlideshowCallback_" +
+    Date.now() +
+    "_" +
+    Math.floor(Math.random() * 100000);
 
-      slideshowBilleder = files
-        .filter(function(file) {
-          return file.type === "file" && /\.(png|jpg|jpeg|webp|gif)$/i.test(file.name);
+  var script = document.createElement("script");
+
+  window[callbackName] = function(data) {
+    try {
+      if (
+        !data ||
+        data.success !== true ||
+        !Array.isArray(data.billeder)
+      ) {
+        throw new Error("Ugyldigt svar fra billedserveren");
+      }
+
+      slideshowBilleder = data.billeder
+        .map(function(billede) {
+          return billede.url;
         })
-        .map(function(file) {
-          return file.download_url;
-        });
+        .filter(Boolean);
 
-      if (slideshowBilleder.length === 0) return;
+      if (slideshowBilleder.length === 0) {
+        return;
+      }
 
       slideshowIndex = 0;
       visSlideshowBillede();
 
-      if (slideshowTimer) clearInterval(slideshowTimer);
+      if (slideshowTimer) {
+        clearInterval(slideshowTimer);
+      }
+
       slideshowTimer = setInterval(function() {
-        slideshowIndex = (slideshowIndex + 1) % slideshowBilleder.length;
+        slideshowIndex =
+          (slideshowIndex + 1) %
+          slideshowBilleder.length;
+
         visSlideshowBillede();
       }, 5000);
-    })
-    .catch(function(error) {
-      console.log("Kunne ikke hente slideshow-billeder:", error);
-    });
+
+    } catch (err) {
+      console.log(
+        "Kunne ikke bruge slideshow-data:",
+        err
+      );
+    } finally {
+      delete window[callbackName];
+      script.remove();
+    }
+  };
+
+  script.onerror = function() {
+    console.log(
+      "Kunne ikke hente slideshow fra Drive"
+    );
+
+    delete window[callbackName];
+    script.remove();
+  };
+
+  script.src =
+    SLIDESHOW_API +
+    "&callback=" +
+    encodeURIComponent(callbackName) +
+    "&t=" +
+    Date.now();
+
+  document.body.appendChild(script);
 }
 
 function visSlideshowBillede() {
